@@ -114,4 +114,62 @@ $y = 3 * (abs(2*$x) + 4);
 ?>
 
 
+<?php
+// print hello in spesific color
+printf("<font color='#%X%X%X'>Hello</font>", 65, 127, 245);
+
+//The result is $10.29
+printf("The result is: $%.2f", 123.42 / 12);
+
+
+echo "<pre>"; // Enables viewing of the spaces
+// Pad to 15 spaces
+printf("The result is $%15f\n", 123.42 / 12);
+// Pad to 15 spaces, fill with zeros
+printf("The result is $%015f\n", 123.42 / 12);
+// Pad to 15 spaces, 2 decimal places precision printf("The result is $%15.2f\n", 123.42 / 12);
+// Pad to 15 spaces, 2 decimal places precision, fill with zeros printf("The result is $%015.2f\n", 123.42 / 12);
+// Pad to 15 spaces, 2 decimal places precision, fill with # symbol
+printf("The result is $%'#15.2f\n", 123.42 / 12); 
+
+?>
+
+
+<?php
+
+// Reading a file with fgets
+
+$fh = fopen("testfile.txt", 'r') or
+die("File does not exist or you lack permission to open it"); $line = fgets($fh);
+fclose($fh);
+echo $line;
+
+// Reading a file with fread
+
+$fh = fopen("testfile.txt", 'r') or
+die("File does not exist or you lack permission to open it"); $text = fread($fh, 3);
+fclose($fh);
+echo $text;
+?>
+
+<?php 
+// update.php updates the text file
+$fh = fopen("testfile.txt", 'r+') or die("Failed to open file"); $text = fgets($fh);
+fseek($fh, 0, SEEK_END);
+fwrite($fh, "$text") or die("Could not write to file"); fclose($fh);
+echo "File 'testfile.txt' successfully updated";
+?>
+
+<?php
+// Updating a file with file locking
+$fh = fopen("testfile.txt", 'r+') or die("Failed to open file"); $text = fgets($fh);
+if (flock($fh, LOCK_EX)) {
+fseek($fh, 0, SEEK_END);
+fwrite($fh, "$text") or die("Could not write to file"); flock($fh, LOCK_UN);
+}
+fclose($fh);
+echo "File 'testfile.txt' successfully updated"; ?>
+
+
+
 
