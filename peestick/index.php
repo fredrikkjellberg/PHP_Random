@@ -1,4 +1,5 @@
 
+
 <?php // upload.php Image uploader (upload.php)
 
 
@@ -33,13 +34,13 @@ function getcolorXY()
 
 function colordiff_power($r, $g, $b, $xr, $xg, $xb)
 {
-	int $power_diff = (($r-$xr)^2 + ($b-$xb)^2 + ($g-$xg)^2);
+	$power_diff = (($r-$xr) + ($b-$xb) + ($g-$xg));
 	return $power_diff;
 }
 
 function colordiff_norm($r, $g, $b, $xr, $xg, $xb)
 {
-	int $diff = $r*$g*$b/$xr*$xg*$xb;
+	$diff = ($r*$g*$b)/($xr*$xg*$xb);
 	return $diff;
 }
 
@@ -56,10 +57,17 @@ echo <<<_END
     <script src="js/bootstrap.min.js"></script>
  	 </head>
   	<body>
-    <h1>Hello, world!</h1>
-
-	<form method='post' action='imgpee.php' enctype='multipart/form-data'>
-	Select File: <input type='file' name='filename' size='30' /> <input type='submit' value='Upload' />
+  	<style type="text/css">
+            * {
+                text-align: center;
+            }
+    </style>
+    <img src="drop.jpg" height="100" width="100">
+    <h1>FLUID HEALTH HACK</h1>
+    <h3>Simply pee on a stick 2.0</h3>
+    <br>
+	<form style=''method='post' action='index.php' enctype='multipart/form-data'>
+	Load pee pix: <input type='file' name='filename' /> <input type='submit' value='Upload' />
 	</form>
 _END;
 
@@ -99,7 +107,10 @@ foreach($colors as $id => $rgb)
     $result_color = "{$result['red']}, {$result['green']}, {$result['blue']}";
     $search_color = "$rgb[0], $rgb[1], $rgb[2]";
 
-    echo "<p style='background-color:rgb($search_color)'> #$id: Search ($rgb[0], $rgb[1], $rgb[2], $rgb[3])</p> <p style='background-color:rgb($result_color )'>Closest match: $result_color .</p>";
+    echo "<p style='background-color:rgb($search_color)'> #$id: Search ($rgb[0], $rgb[1], $rgb[2], $rgb[3])</p>";
+    echo  "<p style='background-color:rgb($result_color )'>Closest match: $result_color .</p>";
+    echo  "difference from original color";
+    echo  colordiff_norm($rgb[0], $rgb[1], $rgb[2], $result['red'], $result['green'], $result['blue']);
 }
 
 }
